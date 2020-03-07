@@ -1,6 +1,24 @@
 plugins {
     id 'cpp-library' // or 'cpp-library'
     id 'org.apache.beam.module' 
+    id 'cpp-unit-test'
+    id 'google-test'
 }
 
-version = '1.2.1'
+repositories {
+    maven {
+        url = 'https://repo.gradle.org/gradle/libs-snapshots-local/'
+    }
+}
+
+unitTest {
+    dependencies {
+        implementation "org.gradle.cpp-samples:googletest:1.9.0-gr4-SNAPSHOT"
+    }
+    binaries.configureEach {
+        if (toolChain instanceof Gcc && targetMachine.operatingSystemFamily.linux) {
+            linkTask.get().linkerArgs.add("-lpthread")
+        }
+    }
+}
+
