@@ -1,0 +1,6 @@
+plugins {
+    id 'cpp-library' // or 'cpp-library'
+    id 'org.apache.beam.module' 
+}
+
+version = '1.2.1'
